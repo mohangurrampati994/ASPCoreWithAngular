@@ -37,4 +37,4 @@ steps:
   inputs:
     SourceFolder: '$(Build.ArtifactStagingDirectory)/'
     Contents: '**'
-    TargetFolder: '$(System.DefaultWorkingDirectory)/**/'
+    TargetFolder: '$(System.DefaultWorkingDirectory)/**/AngularDotNerCore.zip'
