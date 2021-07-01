@@ -20,3 +20,21 @@ steps:
     npm run build
     npm test
   displayName: 'npm install build and test'
+
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '**/TEST-*.xml'
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(Build.BinariesDirectory)'
+    includeRootFolder: true
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/AngularDotNerCore.zip'
+    replaceExistingArchive: true
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(Build.ArtifactStagingDirectory)/'
+    Contents: '**'
+    TargetFolder: '$(System.DefaultWorkingDirectory)/**/'
