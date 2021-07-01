@@ -9,18 +9,14 @@ trigger:
 pool:
   vmImage: 'windows-latest'
 
-variables:
-  solution: '**/*.sln'
-  buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
-
 steps:
-- task: NuGetToolInstaller@1
-
-# Restore all nuget packages and .net core tools
-- task: DotNetCoreCLI@2
+- task: NodeTool@0
   inputs:
-    command: 'custom'
-    projects: '**/*.csproj'
-    custom: 'restore'
-    arguments: '-r $(runtime)'
+    versionSpec: '10.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    npm install
+    npm run build
+    npm test
+  displayName: 'npm install build and test'
