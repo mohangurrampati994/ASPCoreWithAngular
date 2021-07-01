@@ -28,18 +28,14 @@ steps:
 # Build projects
 - task: DotNetCoreCLI@2
   inputs:
-    command: 'build'
-    projects: '**/*.csproj'
-    arguments: '-c $(BuildConfiguration) --no-restore -r $(runtime)'
+    command: 'restore'
+    feedsToUse: 'select'
 
-# Publish all projects to /staging/ci-build/<ProjectName>/
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+
 - task: DotNetCoreCLI@2
   inputs:
     command: 'publish'
-    publishWebProjects: false
-    projects: |
-      **/*Client.csproj
-      **/*WorkerService.csproj
-      **/*Server.csproj
-    arguments: '-c $(BuildConfiguration) -o $(Build.StagingDirectory)/ci-build --no-build --self-contained -r $(runtime)'
-    zipAfterPublish: false
+    publishWebProjects: true
