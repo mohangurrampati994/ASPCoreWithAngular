@@ -23,19 +23,4 @@ steps:
     command: 'custom'
     projects: '**/*.csproj'
     custom: 'restore'
-    arguments: '-r $(runtime)'   
-
-# Build projects
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'restore'
-    feedsToUse: 'select'
-
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'build'
-
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'publish'
-    publishWebProjects: true
+    arguments: '-r $(runtime)'
